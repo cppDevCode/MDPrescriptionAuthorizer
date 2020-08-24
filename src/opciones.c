@@ -50,7 +50,7 @@ void on_w_opciones_show ()
     
     gtk_entry_set_text (txtBdInternados,  "");
     strncpy(homedir, getenv("HOME"), strlen(getenv("HOME")));
-    archPreferencias= g_strjoin(NULL,homedir,"/.config/amedife/preferencias",(gchar*)(char*)NULL);
+    archPreferencias= g_strjoin(NULL,homedir,"/.config/amdauth/preferencias",(gchar*)(char*)NULL);
     if ( access (archPreferencias, F_OK) != -1 )
     {
         pArchivo = fopen (archPreferencias, "r");
@@ -85,17 +85,17 @@ void on_w_opciones_show ()
     }
     else
     {
-        strcat(homedir, "/.config/amedife/bd_ambulatorio");
+        strcat(homedir, "/.config/amdauth/bd_ambulatorio");
         gtk_entry_set_text (txtBdAmbulatorios, homedir);
         strncpy(homedir, getenv("HOME"), 255);
-        strcat(homedir,"/.config/amedife/bd_internacion");
+        strcat(homedir,"/.config/amdauth/bd_internacion");
         gtk_entry_set_text (txtBdInternados,  homedir);
         strncpy(homedir, "bash ", 255);
         strcat(homedir,getenv("HOME"));
-        strcat(homedir,"/bin/amedife.sh ");
+        strcat(homedir,"/bin/amdauth.sh ");
         gtk_entry_set_text (txtComando, homedir);
         strncpy(homedir, getenv("HOME"), 255);
-        strcat(homedir,"/.config/amedife/config");
+        strcat(homedir,"/.config/amdauth/config");
         gtk_entry_set_text (txtConfig, homedir);
         gtk_entry_set_text (txtRutascan, "/tmp/scan.jpg");
 
@@ -108,7 +108,7 @@ void on_btnGuardar_clicked ()
     FILE *pArchivo=NULL;
     gchar *texto="";
     char *archPreferencias = getenv("HOME");
-    archPreferencias = g_strjoin(NULL,archPreferencias,"/.config/amedife/preferencias",(gchar*)(char*)NULL);
+    archPreferencias = g_strjoin(NULL,archPreferencias,"/.config/amdauth/preferencias",(gchar*)(char*)NULL);
     pArchivo = fopen (archPreferencias, "w");
     if ( pArchivo == NULL ) {
              printf ("ERROR ARCHIVO INEXISTENTE");

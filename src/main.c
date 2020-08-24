@@ -24,13 +24,14 @@ GtkWidget *wError;
 GtkWidget *wAcerca;
 GtkButton *btnError;
 
-
-char *mail = "autorizaciones@medife.com.ar";
-char *ArchConfig = "/home/raquel/.config/amedife/config";
-char *RutaScript = "bash /home/alejandro/bin/amedife.sh ";
+const char *MAIL_AMBULATORIO = "autorizaciones@xxxx.com.ar";
+const char *MAIL_INTERNACION = "internaciones@xxxx.com.ar";
+char *mail = MAIL_AMBULATORIO;
+char *ArchConfig = "/home/raquel/.config/amdauth/config";
+char *RutaScript = "bash /home/alejandro/bin/amdauth.sh ";
 char *RutaScan = "/tmp/scan.jpg";
-char *BdAmbulatorio = "/home/raquel/.config/amedife/bd_ambulatorio";
-char *BdInternacion = "";//"/home/raquel/.config/amedife/bd_internacion";
+char *BdAmbulatorio = "/home/raquel/.config/amdauth/bd_ambulatorio";
+char *BdInternacion = "";//"/home/raquel/.config/amdauth/bd_internacion";
 
 
 void Cargo_afiliados ();
@@ -203,12 +204,12 @@ void on_chb_internacion_toggled ()
     gtk_list_store_clear (GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (wCmbPractica))));        
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (wChbInternacion)) == TRUE)
     {
-        mail = "internaciones@medife.com.ar";
+        mail = MAIL_INTERNACION;
         file = fopen (BdInternacion, "r");
     }
 else
     {
-        mail = "autorizaciones@medife.com.ar";
+        mail = MAIL_AMBULATORIO;
         file = fopen (BdAmbulatorio, "r");
     }
     while (fgets (practica, sizeof (practica) - 1, file) != NULL) 
@@ -316,11 +317,7 @@ void Cargo_afiliados ()
 
     columna = gtk_cell_renderer_text_new ();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (wCmbAfiliado), columna, TRUE);
-    //gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(w_cmb_afiliado), columna,
-     //                              "cell-background", 0,
-       //                            "text", 1,
-         //                          NULL);
-
+  
     gtk_combo_box_set_active (GTK_COMBO_BOX (wCmbAfiliado), 0);
 
     
@@ -343,9 +340,9 @@ FILE *pArchivo=NULL;
     gchar *archPreferencias = "";
     
     casadir=getenv("HOME");
-    //casadir[strlen (casadir) - 1 ] = '\0';
     
-    archPreferencias= g_strjoin(NULL,casadir,"/.config/amedife/preferencias",(gchar*)(char*)NULL);
+    
+    archPreferencias= g_strjoin(NULL,casadir,"/.config/amdauth/preferencias",(gchar*)(char*)NULL);
     printf("%s\n",archPreferencias);
     if ( access (archPreferencias, F_OK) != -1 )
     {
@@ -380,10 +377,10 @@ FILE *pArchivo=NULL;
     }
     else
     {
-        *baseAmbulatorio = g_strjoin(NULL,casadir,"/.config/amedife/bd_ambulatorio",(gchar*)(char*)NULL);    
-        *baseInternados = g_strjoin(NULL,casadir,"/.config/amedife/bd_internacion",(gchar*)(char*)NULL);      
-        *rutaComando = g_strjoin(NULL,"bash ",casadir,"/bin/amedife.sh ",(gchar*)(char*)NULL);      
-        *config = g_strjoin(NULL,casadir,"/.config/amedife/config",(gchar*)(char*)NULL);      
+        *baseAmbulatorio = g_strjoin(NULL,casadir,"/.config/amdauth/bd_ambulatorio",(gchar*)(char*)NULL);    
+        *baseInternados = g_strjoin(NULL,casadir,"/.config/amdauth/bd_internacion",(gchar*)(char*)NULL);      
+        *rutaComando = g_strjoin(NULL,"bash ",casadir,"/bin/amdauth.sh ",(gchar*)(char*)NULL);      
+        *config = g_strjoin(NULL,casadir,"/.config/amdauth/config",(gchar*)(char*)NULL);      
         *orden="/tmp/scan.jpg";
         return FALSE;
     }
